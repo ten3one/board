@@ -471,7 +471,10 @@ export default function Authentication() {
         setAddressErrorMessage("주소를 입력해주세요.");
       }
 
-      if (!agreedPersonal) setAgreedPersonalError(true);
+      if (!agreedPersonal) {
+        setAgreedPersonalError(true);
+        alert("개인정보동의 여부를 확인해주세요.");
+      }
 
       if (!hasNickname || !isTelNumberPattern || !hasAddress || !agreedPersonal)
         return;
