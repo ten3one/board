@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.example.board_back.dto.request.auth.SignUpRequestDto;
+import com.example.board_back.dto.request.user.UpdateNicknameRequestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,14 @@ public class UserEntity {
         this.address = dto.getAddress();
         this.addressDetail = dto.getAddressDetail();
         this.agreedPersonal = dto.getAgreedPersonal();
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
 }

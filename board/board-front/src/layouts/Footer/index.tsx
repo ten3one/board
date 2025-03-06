@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
+import { useLoginUserStore } from "stores";
 
 //          component: 푸터 레이아웃          //
 export default function Footer() {
+  //          state: 로그인 유저 상태         //
+  const { loginUser, resetLoginUser } = useLoginUserStore();
+
   //          event handler: 인스타 아이콘 버튼 클릭 이벤트 처리         //
   const onInstaIconButtonClickHandler = () => {
     window.open("https://www.instagram.com");
@@ -18,6 +22,13 @@ export default function Footer() {
     window.open("http://www.becomesolution.com/");
   };
 
+  //          effect : 로그인 유저 변경될 때 마다 실행될 함수         //
+  useEffect(() => {
+    if (loginUser === null) {
+      resetLoginUser();
+    }
+  }, [loginUser]);
+
   //          render: 푸터 레이아웃 렌더링         //
   return (
     <div id="footer">
@@ -30,8 +41,11 @@ export default function Footer() {
             <div className="footer-logo-text">{`Become Board`}</div>
           </div>
           <div className="footer-link-box">
-            <div className="footer-email-link" onClick={onEmailIconButtonClickHandler}>
-              {`yjchu@becomesolution.com`}
+            <div
+              className="footer-email-link"
+              onClick={onEmailIconButtonClickHandler}
+            >
+              {loginUser?.email}
             </div>
             <div
               className="icon-button"

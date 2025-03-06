@@ -24,6 +24,7 @@ import com.example.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.example.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.example.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.example.board_back.dto.response.board.GetTop3BoardListResponseDto;
+import com.example.board_back.dto.response.board.GetUserBoardListResponseDto;
 import com.example.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.example.board_back.dto.response.board.PostBoardResponseDto;
 import com.example.board_back.dto.response.board.PostCommentResponseDto;
@@ -99,6 +100,15 @@ public class BoardController {
             @PathVariable("boardNumber") Integer boardNumber) {
 
         ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
+
+        return response;
+    }
+
+    @GetMapping("/user-board-list/{email}")
+    public ResponseEntity<? super GetUserBoardListResponseDto> getUserBoardList(
+            @PathVariable("email") String email) {
+
+        ResponseEntity<? super GetUserBoardListResponseDto> response = boardService.getUserBoardList(email);
 
         return response;
     }
