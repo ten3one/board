@@ -12,7 +12,7 @@ import lombok.Getter;
 @Getter
 public class DeleteBoardResponseDto extends ResponseDto {
 
-    public DeleteBoardResponseDto() {
+    private DeleteBoardResponseDto() {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     }
 

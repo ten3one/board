@@ -11,7 +11,8 @@ import lombok.Getter;
 
 @Getter
 public class UpdateBoardResponseDto extends ResponseDto {
-    public UpdateBoardResponseDto() {
+
+    private UpdateBoardResponseDto() {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     }
 

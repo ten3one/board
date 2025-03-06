@@ -12,7 +12,7 @@ import lombok.Getter;
 @Getter
 public class PostCommentResponseDto extends ResponseDto {
 
-    public PostCommentResponseDto() {
+    private PostCommentResponseDto() {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     }
 

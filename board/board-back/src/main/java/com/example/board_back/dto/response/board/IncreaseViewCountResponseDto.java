@@ -9,7 +9,7 @@ import com.example.board_back.dto.response.ResponseDto;
 
 public class IncreaseViewCountResponseDto extends ResponseDto {
 
-    public IncreaseViewCountResponseDto() {
+    private IncreaseViewCountResponseDto() {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     }
 

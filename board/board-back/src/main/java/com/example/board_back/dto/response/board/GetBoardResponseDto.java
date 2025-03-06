@@ -26,7 +26,7 @@ public class GetBoardResponseDto extends ResponseDto {
     private String writerNickname;
     private String writerProfileImage;
 
-    public GetBoardResponseDto(GetBoardResultSet resultSet,
+    private GetBoardResponseDto(GetBoardResultSet resultSet,
             List<ImageEntity> imageEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
 
