@@ -1,0 +1,641 @@
+// 게시판 화면 기능 설계
+
+=========================================================
+
+signIn()
+
+- URL
+POST /api/v1/auth/sign-in
+
+- request {
+    *email : String,
+    *password : String
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    token : "jwt...",
+    expiredDate : 123456
+}
+
+- response(Fail) 
+
+Http Status - 401 (Unauthorized) {
+    code : "SF", 
+    message : "Sign In Failde."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+signUp()
+
+- URL
+PST /api/v1/auth/sign-up
+
+- request {
+    *email : String,
+    *password : String,
+    *nickname : String,
+    *telNumber : String,
+    *nickname : String,
+    *adrress : String,
+    adrressDetail : String
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "EE", 
+    message : "Existed Email."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+weeklyTop3List()
+
+- URL
+GET /api/v1/board/top-3
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    top3List : BoardListItem[]
+}
+
+BoardListItem {
+    boardNumber : Int,
+    Title : String,
+    content : String,
+    boardTitleImage : String,
+    favoriteCount : Int,
+    commentCount : Int,
+    viewCount : Int,
+    writeDatetime : String,
+    writerNickname : String,
+    writerProfileImage : String
+}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+currentList()
+
+- URL
+GET /api/v1/board/current-list/{pageNumber}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    currentList : BoardListItem[]
+}
+
+BoardListItem {
+    boardNumber : Int,
+    Title : String,
+    content : String,
+    boardTitleImage : String,
+    favoriteCount : Int,
+    commentCount : Int,
+    viewCount : Int,
+    writeDatetime : String,
+    writerNickname : String,
+    writerProfileImage : String
+}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+popularWordList()
+
+- URL
+GET /api/v1/search/popular-list
+
+- Header
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    popularWordList : String[]
+}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+searchList()
+
+- URL
+GET /api/v1/board/search-list/{searchWord}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    searchList : BoardListItem[]
+}
+
+BoardListItem {
+    boardNumber : Int,
+    Title : String,
+    content : String,
+    boardTitleImage : String,
+    favoriteCount : Int,
+    commentCount : Int,
+    viewCount : Int,
+    writeDatetime : String,
+    writerNickname : String,
+    writerProfileImage : String
+}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+relativeWordList()
+
+- URL
+GET /api/v1/search/{searchWord}/relation-list
+
+- Header
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    relativeWordList : String[]
+}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+boardDetail()
+
+- URL
+GET /api/v1/board/{boardNumber}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",    
+    boardNumber : Int,
+    Title : String,
+    content : String,
+    boardImage : String[],
+    writeDatetime : String,
+    writeEmail : String,
+    writerNickname : String,
+    writerProfileImage : String
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NB", 
+    message : "No Existerd Board Number."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+favoriteList()
+
+- URL
+GET /api/v1/board/{boardNumber}/favorite-list
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    favoriteList : FavoriteListItem[]    
+}
+
+FavoriteListItem {
+    email: String,
+    Nickname : String,
+    ProfileImage : String
+}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+putFavorite()
+
+- URL
+PUT /api/v1/board/{boardNumber}/favorite
+
+- Header {
+    Authorization : Bearer Token
+}
+
+- request {
+    boardNumber : Int
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+0}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+ 
+commentList()
+
+- URL
+GET /api/v1/board/{boardNumber}/comment-list
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    commentList : commentListItem[]
+}
+
+commentListItem {
+    email : String,
+    nickname : String,
+    writeDatetime : String,
+    content : String
+}
+
+- response(Fail) 
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+postComment ()
+
+- request {
+    content : String
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NB", 
+    message : "No Existed Board."
+}
+
+Http Status - 400 (Bad Request) {
+    code : "NU", 
+    message : "No Existed User."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+boardDelete()
+
+- URL
+DELETE /api/v1/board/{boardNumber}
+
+- Header {
+    Authorization : Bearer Token
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NB", 
+    message : "No Existed Board."
+}
+
+Http Status - 400 (Bad Request) {
+    code : "NU", 
+    message : "No Existed User."
+}
+
+Http Status - 403 (Forbidden) {
+    code : "NP", 
+    message : "No Permission."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+boardWrite()
+
+- URL
+POST /api/board
+
+- Header {
+    Authorization : Bearer Token
+}
+
+- request {
+    title : String,
+    content : String,
+    boardImageList : String[]
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NU", 
+    message : "No Existed User."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+boardUpdate()
+
+- URL
+PATCH /api/v1/board/{boardNumber}
+
+- Header {
+    Authorization : Bearer Token
+}
+
+- request {
+    title : String,
+    content : String,
+    boardImageList : String[]
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NB", 
+    message : "No Existed Board."
+}
+
+Http Status - 400 (Bad Request) {
+    code : "NU", 
+    message : "No Existed User."
+}
+
+Http Status - 403 (Forbidden) {
+    code : "NP", 
+    message : "No Permission."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+getUserInfo()
+
+- URL
+GET /api/v1/user/{email}
+
+- Header
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    eamil : String,
+    nickname : String,
+    ProfileImage : String
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NU", 
+    message : "No Existed User."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+userBoardList()
+
+- URL
+/api/v1/board/user-board-list/{email}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success.",
+    boardList : BoardListItem[]
+}
+
+BoardListItem {
+    boardNumber : Int,
+    Title : String,
+    content : String,
+    boardTitleImage : String,
+    favoriteCount : Int,
+    commentCount : Int,
+    viewCount : Int,
+    writeDatetime : String,
+    writerNickname : String,
+    writerProfileImage : String
+}
+
+- response(Fail) 
+  
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+patchNickname()
+
+- URL
+PATCH /api/v1/user/nickname
+
+- Header {
+    Authorization : Bearer Token
+}
+
+- request {
+    nickname : String
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NU", 
+    message : "No Existed User."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+patchProfileImage()
+
+- URL
+PATCH /api/v1/user/profile-image
+
+- Header {
+    Authorization : Bearer Token
+}
+
+- request {
+    ProfileImage : String
+}
+
+- response(SUCCESS) 
+
+Http Status - 200 (OK) {
+    code : "SU", 
+    message : "Success."
+}
+
+- response(Fail) 
+
+Http Status - 400 (Bad Request) {
+    code : "NU", 
+    message : "No Existed User."
+}
+
+Http Status - 500 (Internal Server Error) {
+    code : "DE", 
+    message : "Database Error."
+}
+
+=========================================================
+
+fileUpload()
+
+=========================================================
+
+getFile()
+
+=========================================================
