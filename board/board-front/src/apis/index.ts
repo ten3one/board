@@ -26,12 +26,22 @@ import {
   GetPopularListResponseDto,
   GetRelationListResponseDto,
 } from "./response/search";
-import { GetSignInUserResponseDto, GetUserResponseDto } from "./response/user";
+import {
+  GetSignInUserResponseDto,
+  GetUserResponseDto,
+  UpdateNicknameResponseDto,
+  UpdateProfileImageResponseDto,
+} from "./response/user";
+import {
+  UpdateNicknameRequestDto,
+  UpdateProfileImageRequestDto,
+} from "./request/user";
 
 const DOMAIN = "http://localhost:4000";
 
 const API_DOMAIN = `${DOMAIN}/api/v1`;
 
+// AUTHORIZATION
 const authorization = (accessToken: string) => {
   return {
     headers: {
@@ -75,8 +85,11 @@ export const signUpRequest = async (requsetBody: SignUpRequestDto) => {
   return result;
 };
 
+// USER
 const GET_SIGN_IN_USER_URL = () => `${API_DOMAIN}/user`;
 const GET_USER_URL = (email: string) => `${API_DOMAIN}/user/${email}`;
+const UPDATE_NICKNAME_URL = () => `${API_DOMAIN}/user/nickname`;
+const UPDATE_PROFILE_IMAGE_URL = () => `${API_DOMAIN}/user/profile-image`;
 
 export const getSignInUserRequest = async (accessToken: string) => {
   const result = await axios
@@ -110,6 +123,43 @@ export const getUserRequest = async (email: string) => {
   return result;
 };
 
+export const updateNicknameRequest = async (
+  requestBody: UpdateNicknameRequestDto,
+  accessToken: string
+) => {
+  const result = await axios
+    .patch(UPDATE_NICKNAME_URL(), requestBody, authorization(accessToken))
+    .then((response) => {
+      const responseBody: UpdateNicknameResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+
+export const updateProfileImageRequest = async (
+  requestBody: UpdateProfileImageRequestDto,
+  accessToken: string
+) => {
+  const result = await axios
+    .patch(UPDATE_PROFILE_IMAGE_URL(), requestBody, authorization(accessToken))
+    .then((response) => {
+      const responseBody: UpdateProfileImageResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+
+// BOARD
 const GET_POPULAR_LIST_URL = () => `${API_DOMAIN}/search/popular-list`;
 const GET_RELATION_LIST_URL = (searchWord: string) =>
   `${API_DOMAIN}/search/${searchWord}/relation-list`;
@@ -408,6 +458,7 @@ export const deleteBoardRequest = async (
   return result;
 };
 
+// FILE
 const FILE_DOMAIN = `${DOMAIN}/file`;
 
 const FILE_UPLOAD_URL = () => `${FILE_DOMAIN}/upload`;
