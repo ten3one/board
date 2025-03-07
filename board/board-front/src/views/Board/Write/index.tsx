@@ -148,15 +148,6 @@ export default function BoardWrite() {
                 </div>
               </div>
             ))}
-            {/* <div className="board-write-image-box">
-              <img
-                className="board-write-image"
-                src="https://velog.velcdn.com/images/woohm402/post/f6711d18-b6b6-4a3c-9d0b-5d5d7e09962d/image.webp"
-              />
-              <div className="icon-button image-close">
-                <div className="icon close-icon"></div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
