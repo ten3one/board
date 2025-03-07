@@ -12,6 +12,6 @@ import lombok.Setter;
 public class UpdateNicknameRequestDto {
 
     @NotBlank
-    private String nickname;
+    private String newNickname;
 
 }
