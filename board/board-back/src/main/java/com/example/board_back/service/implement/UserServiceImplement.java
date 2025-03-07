@@ -74,7 +74,7 @@ public class UserServiceImplement implements UserService {
                 return UpdateNicknameResponseDto.notExistUser();
             }
 
-            String nickname = dto.getNickname();
+            String nickname = dto.getNewNickname();
             boolean existedNickname = userRepository.existsByNickname(nickname);
             if (existedNickname) {
                 return UpdateNicknameResponseDto.duplicateNickname();
