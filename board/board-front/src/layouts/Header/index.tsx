@@ -20,6 +20,8 @@ import {
 } from "../../constant";
 import { useBoardStore, useLoginUserStore } from "../../stores";
 import "./style.css";
+import Popup from "components/Popup";
+import User from "views/User";
 
 //          component: 헤더 레이아웃          //
 export default function Header() {
@@ -45,6 +47,8 @@ export default function Header() {
   const [isBoardUpdatePage, setBoardUpdatePage] = useState<boolean>(false);
   //          state: 유저 페이지 상태         //
   const [isUserPage, setUserPage] = useState<boolean>(false);
+  //          state: 마이 페이지 상태         //
+  const [isMyPage, setMyPage] = useState<boolean>(false);
 
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
@@ -122,6 +126,36 @@ export default function Header() {
         >
           <div className="icon search-light-icon"></div>
         </div>
+      </div>
+    );
+  };
+
+  //          component: 수정 버튼 컴포넌트          //
+  const UpdateButton = () => {
+    //          state: 팝업 화면 상태         //
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => {
+      setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+      setIsPopupOpen(false);
+    };
+
+    //          event handler: 검색 버튼 클릭 이벤트 처리 함수         //
+    const onUpdateButtonClickHandler = () => {};
+
+    //          effect: 마운트 시 실행될 함수         //
+    useEffect(() => {}, []);
+
+    //          render: 수정 버튼 컴포넌트 렌더링         //
+    return (
+      <div className="icon-button" onClick={openPopup}>
+        <div className="icon edit-light-icon"></div>
+        {isPopupOpen && loginUser !== null && (
+          <Popup user={loginUser} onClose={closePopup} />
+        )}
       </div>
     );
   };
@@ -288,6 +322,9 @@ export default function Header() {
     setBoardUpdatePage(isBoardUpdatePage);
     const isUserPage = pathname.startsWith(USER_PATH(""));
     setUserPage(isUserPage);
+    if (!loginUser) return;
+    const isMyPage = pathname.startsWith(USER_PATH(loginUser?.email));
+    setMyPage(isMyPage);
   }, [pathname]);
 
   //          effect: 로그인 유저가 변경될 때 마다 실행될 함수          //
@@ -305,10 +342,12 @@ export default function Header() {
           </div>
           <div className="header-logo"> {"Become Board"}</div>
         </div>
+
         <div className="header-right-box">
           {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage) && (
             <SearchButton />
           )}
+          {isMyPage && <UpdateButton />}
           {(isMainPage || isSearchPage || isBoardDetailPage || isUserPage) && (
             <MyPageButton />
           )}
