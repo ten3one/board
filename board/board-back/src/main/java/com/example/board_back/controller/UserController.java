@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.board_back.dto.request.user.UpdateNicknameRequestDto;
 import com.example.board_back.dto.request.user.UpdateProfileImageRequestDto;
+import com.example.board_back.dto.request.user.UpdateUserinfoRequestDto;
 import com.example.board_back.dto.response.user.GetSignInUserResponseDto;
 import com.example.board_back.dto.response.user.GetUserResponseDto;
 import com.example.board_back.dto.response.user.UpdateNicknameResponseDto;
 import com.example.board_back.dto.response.user.UpdateProfileImageResponseDto;
+import com.example.board_back.dto.response.user.UpdateUserInfoResponseDto;
 import com.example.board_back.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -54,6 +56,13 @@ public class UserController {
             @AuthenticationPrincipal String email) {
         ResponseEntity<? super UpdateProfileImageResponseDto> response = userService.updateProfileImage(requestBody,
                 email);
+        return response;
+    }
+
+    @PatchMapping("/user-info")
+    public ResponseEntity<? super UpdateUserInfoResponseDto> updateUserInfo(
+            @RequestBody @Valid UpdateUserinfoRequestDto requestBody) {
+        ResponseEntity<? super UpdateUserInfoResponseDto> response = userService.updateUserInfo(requestBody);
         return response;
     }
 

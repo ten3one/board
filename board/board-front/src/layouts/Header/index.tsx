@@ -25,6 +25,9 @@ import User from "views/User";
 
 //          component: 헤더 레이아웃          //
 export default function Header() {
+  //          state: path variable 상태         //
+  const { userEmail } = useParams<string>();
+
   //          state: 로그인 유저 상태         //
   const { loginUser, setLoginUser, resetLoginUser } = useLoginUserStore();
   //          state: path 상태         //
@@ -130,8 +133,8 @@ export default function Header() {
     );
   };
 
-  //          component: 수정 버튼 컴포넌트          //
-  const UpdateButton = () => {
+  //          component: 유저 버튼 컴포넌트          //
+  const UserButton = () => {
     //          state: 팝업 화면 상태         //
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -143,18 +146,21 @@ export default function Header() {
       setIsPopupOpen(false);
     };
 
-    //          event handler: 검색 버튼 클릭 이벤트 처리 함수         //
-    const onUpdateButtonClickHandler = () => {};
+    const onUpdateEventHandler = () => {
+      if (!loginUser) return;
+      navigate(USER_PATH(loginUser?.email));
+    };
 
-    //          effect: 마운트 시 실행될 함수         //
-    useEffect(() => {}, []);
-
-    //          render: 수정 버튼 컴포넌트 렌더링         //
+    //          render: 유저 버튼 컴포넌트 렌더링         //
     return (
       <div className="icon-button" onClick={openPopup}>
-        <div className="icon edit-light-icon"></div>
+        <div className="icon profile-user-icon"></div>
         {isPopupOpen && loginUser !== null && (
-          <Popup user={loginUser} onClose={closePopup} />
+          <Popup
+            user={loginUser}
+            onClose={closePopup}
+            onUpdate={onUpdateEventHandler}
+          />
         )}
       </div>
     );
@@ -322,9 +328,12 @@ export default function Header() {
     setBoardUpdatePage(isBoardUpdatePage);
     const isUserPage = pathname.startsWith(USER_PATH(""));
     setUserPage(isUserPage);
-    if (!loginUser) return;
-    const isMyPage = pathname.startsWith(USER_PATH(loginUser?.email));
-    setMyPage(isMyPage);
+    if (!loginUser) {
+      setMyPage(false);
+    } else {
+      const isMyPage = pathname.startsWith(USER_PATH(loginUser.email));
+      setMyPage(isMyPage);
+    }
   }, [pathname]);
 
   //          effect: 로그인 유저가 변경될 때 마다 실행될 함수          //
@@ -347,7 +356,9 @@ export default function Header() {
           {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage) && (
             <SearchButton />
           )}
-          {isMyPage && <UpdateButton />}
+          {isUserPage && isLogin && userEmail === loginUser?.email && (
+            <UserButton />
+          )}
           {(isMainPage || isSearchPage || isBoardDetailPage || isUserPage) && (
             <MyPageButton />
           )}

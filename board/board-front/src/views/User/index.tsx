@@ -142,7 +142,6 @@ export default function User() {
     //          event handler: 닉네임 입력란 비활성화 이벤트 처리          //
     const onNicknameBlurHandler = () => {
       setChangeNicknameMode(!isChangeNicknameMode);
-      console.log(newNickname);
     };
 
     //          event handler: 닉네임 변경 이벤트 처리          //
@@ -209,82 +208,84 @@ export default function User() {
       <>
         <div id="user-top-wrapper">
           <div className="user-top-container">
-            {isMyPage ? (
-              <div
-                className="user-top-my-profile-image-box"
-                onClick={onProfileImageClickHandler}
-              >
-                <div
-                  className="user-top-my-profile-image"
-                  style={{
-                    backgroundImage: `url(${
-                      writeProfileImageUrl
-                        ? writeProfileImageUrl
-                        : defaultProfileImage
-                    })`,
-                  }}
-                ></div>
-                <input
-                  ref={imageInputRef}
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={onProfileImageChangeHandler}
-                />
-              </div>
-            ) : (
-              <div className="user-top-profile-image-box">
-                <div
-                  className="user-top-profile-image"
-                  style={{
-                    backgroundImage: `url(${
-                      writeProfileImageUrl
-                        ? writeProfileImageUrl
-                        : defaultProfileImage
-                    })`,
-                  }}
-                ></div>
-              </div>
-            )}
-            <div className="user-top-profile-box">
+            <div className="user-tup-box">
               {isMyPage ? (
-                <>
-                  {isChangeNicknameMode ? (
-                    <input
-                      className="user-top-my-profile-nickname"
-                      ref={nicknameInputRef}
-                      type="text"
-                      size={newNickname.length + 2}
-                      value={newNickname}
-                      onChange={onNicknameChangeHandler}
-                      onBlur={onNicknameBlurHandler}
-                    />
-                  ) : (
-                    <div
-                      className="user-top-my-profile-nickname"
-                      onClick={onNicknameClickHandler}
-                    >
-                      {writerNickname}
-                    </div>
-                  )}
-                </>
+                <div
+                  className="user-top-my-profile-image-box"
+                  onClick={onProfileImageClickHandler}
+                >
+                  <div
+                    className="user-top-my-profile-image"
+                    style={{
+                      backgroundImage: `url(${
+                        writeProfileImageUrl
+                          ? writeProfileImageUrl
+                          : defaultProfileImage
+                      })`,
+                    }}
+                  ></div>
+                  <input
+                    ref={imageInputRef}
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={onProfileImageChangeHandler}
+                  />
+                </div>
               ) : (
-                <div className="user-top-profile-nickname">
-                  {writerNickname}
+                <div className="user-top-profile-image-box">
+                  <div
+                    className="user-top-profile-image"
+                    style={{
+                      backgroundImage: `url(${
+                        writeProfileImageUrl
+                          ? writeProfileImageUrl
+                          : defaultProfileImage
+                      })`,
+                    }}
+                  ></div>
                 </div>
               )}
-              <div className="user-top-profile-email">{userEmail}</div>
-            </div>
-            {isMyPage && (
-              <div className="user-top-profile-nickname-update">
-                <div
-                  className="icon-button"
-                  onClick={onUpdateNicknameButtonClickHandler}
-                >
-                  <div className="icon edit-light-icon"></div>
-                </div>
+              <div className="user-top-profile-box">
+                {isMyPage ? (
+                  <>
+                    {isChangeNicknameMode ? (
+                      <input
+                        className="user-top-my-profile-nickname"
+                        ref={nicknameInputRef}
+                        type="text"
+                        size={newNickname.length + 2}
+                        value={newNickname}
+                        onChange={onNicknameChangeHandler}
+                        onBlur={onNicknameBlurHandler}
+                      />
+                    ) : (
+                      <div
+                        className="user-top-my-profile-nickname"
+                        onClick={onNicknameClickHandler}
+                      >
+                        {writerNickname}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="user-top-profile-nickname">
+                    {writerNickname}
+                  </div>
+                )}
+                <div className="user-top-profile-email">{userEmail}</div>
               </div>
-            )}
+              {isMyPage && (
+                <div className="user-top-profile-nickname-update">
+                  <div
+                    className="icon-button"
+                    onClick={onUpdateNicknameButtonClickHandler}
+                  >
+                    <div className="icon edit-light-icon"></div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </>
