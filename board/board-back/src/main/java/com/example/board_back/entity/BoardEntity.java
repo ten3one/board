@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.example.board_back.dto.request.board.PostBoardRequestDto;
 import com.example.board_back.dto.request.board.UpdateBoardRequestDto;
