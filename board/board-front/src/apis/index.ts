@@ -31,10 +31,12 @@ import {
   GetUserResponseDto,
   UpdateNicknameResponseDto,
   UpdateProfileImageResponseDto,
+  UpdateUserInfoResponseDto,
 } from "./response/user";
 import {
   UpdateNicknameRequestDto,
   UpdateProfileImageRequestDto,
+  UpdateUserInfoRequestDto,
 } from "./request/user";
 
 const DOMAIN = "http://localhost:4000";
@@ -90,6 +92,7 @@ const GET_SIGN_IN_USER_URL = () => `${API_DOMAIN}/user`;
 const GET_USER_URL = (email: string) => `${API_DOMAIN}/user/${email}`;
 const UPDATE_NICKNAME_URL = () => `${API_DOMAIN}/user/nickname`;
 const UPDATE_PROFILE_IMAGE_URL = () => `${API_DOMAIN}/user/profile-image`;
+const UPDATE_USER_INFO_URL = () => `${API_DOMAIN}/user/user-info`;
 
 export const getSignInUserRequest = async (accessToken: string) => {
   const result = await axios
@@ -149,6 +152,24 @@ export const updateProfileImageRequest = async (
     .patch(UPDATE_PROFILE_IMAGE_URL(), requestBody, authorization(accessToken))
     .then((response) => {
       const responseBody: UpdateProfileImageResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+
+export const updateUserInfoRequest = async (
+  requestBody: UpdateUserInfoRequestDto,
+  accessToken: string
+) => {
+  const result = await axios
+    .patch(UPDATE_USER_INFO_URL(), requestBody, authorization(accessToken))
+    .then((response) => {
+      const responseBody: UpdateUserInfoResponseDto = response.data;
       return responseBody;
     })
     .catch((error) => {
