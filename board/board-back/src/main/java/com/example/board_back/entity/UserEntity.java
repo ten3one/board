@@ -1,8 +1,8 @@
 package com.example.board_back.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import com.example.board_back.dto.request.auth.SignUpRequestDto;
 import com.example.board_back.dto.request.user.UpdateNicknameRequestDto;
