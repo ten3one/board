@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SignInRequsetDto, SignUpRequestDto } from "./request/auth";
+import { SignInRequestDto, SignUpRequestDto } from "./request/auth";
 import {
   PostBoardRequestDto,
   PostCommentRequestDto,
@@ -55,9 +55,9 @@ const authorization = (accessToken: string) => {
 const SIGN_IN_URL = () => `${API_DOMAIN}/auth/sign-in`;
 const SIGN_UP_URL = () => `${API_DOMAIN}/auth/sign-up`;
 
-export const signInRequest = async (requsetBody: SignInRequsetDto) => {
+export const signInRequest = async (requestBody: SignInRequestDto) => {
   const result = await axios
-    .post(SIGN_IN_URL(), requsetBody)
+    .post(SIGN_IN_URL(), requestBody)
     .then((response) => {
       const responseBody: SignInResponseDto = response.data;
       return responseBody;
@@ -71,9 +71,9 @@ export const signInRequest = async (requsetBody: SignInRequsetDto) => {
   return result;
 };
 
-export const signUpRequest = async (requsetBody: SignUpRequestDto) => {
+export const signUpRequest = async (requestBody: SignUpRequestDto) => {
   const result = await axios
-    .post(SIGN_UP_URL(), requsetBody)
+    .post(SIGN_UP_URL(), requestBody)
     .then((response) => {
       const responseBody: SignUpResponseDto = response.data;
       return responseBody;

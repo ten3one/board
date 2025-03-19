@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import "./style.css";
 import InputBox from "components/InputBox";
-import { SignInRequsetDto, SignUpRequestDto } from "apis/request/auth";
+import { SignInRequestDto, SignUpRequestDto } from "apis/request/auth";
 import { signInRequest, signUpRequest } from "apis";
 import { SignInResponseDto, SignUpResponseDto } from "apis/response/auth";
 import { ResponseDto } from "apis/response";
@@ -91,7 +91,7 @@ export default function Authentication() {
 
     //          event handler : 로그인 버튼 클릭 이벤트 처리          //
     const onSignInButtonClickHandler = () => {
-      const requsetBody: SignInRequsetDto = { email, password };
+      const requsetBody: SignInRequestDto = { email, password };
       signInRequest(requsetBody).then(signInResponse);
     };
 
