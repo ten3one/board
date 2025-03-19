@@ -63,7 +63,7 @@ export const signInRequest = async (requestBody: SignInRequestDto) => {
       return responseBody;
     })
     .catch((error) => {
-      if (!error.response.data) return null;
+      if (!error.response) return null;
       const responseBody: ResponseDto = error.response.data;
       return responseBody;
     });
@@ -79,7 +79,7 @@ export const signUpRequest = async (requestBody: SignUpRequestDto) => {
       return responseBody;
     })
     .catch((error) => {
-      if (!error.response.data) return null;
+      if (!error.response) return null;
       const responseBody: ResponseDto = error.response.data;
       return responseBody;
     });
