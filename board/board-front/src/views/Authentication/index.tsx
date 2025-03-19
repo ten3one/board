@@ -479,7 +479,7 @@ export default function Authentication() {
       if (!hasNickname || !isTelNumberPattern || !hasAddress || !agreedPersonal)
         return;
 
-      const requsetBody: SignUpRequestDto = {
+      const requestBody: SignUpRequestDto = {
         email,
         password,
         nickname,
@@ -489,7 +489,7 @@ export default function Authentication() {
         agreedPersonal,
       };
 
-      signUpRequest(requsetBody).then(signUpResponse);
+      signUpRequest(requestBody).then(signUpResponse);
     };
 
     //          event handler: 로그인 링크 클릭 이벤트 처리         //
